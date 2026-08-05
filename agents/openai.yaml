@@ -1,0 +1,4 @@
+interface:
+  display_name: "Taste + GSAP Frontend"
+  short_description: "Design frontends with purposeful GSAP motion"
+  default_prompt: "Use $taste-gsap-frontend to design the interface and implement purposeful, accessible motion with the appropriate GSAP patterns."

@@ -1,59 +1,137 @@
 ---
 name: taste-gsap-frontend
-description: Design distinctive landing pages, portfolios, and redesigns, then implement purposeful accessible motion with GSAP across React, Next.js, Vue, Svelte, or vanilla frontend code. Use when a frontend task needs both visual direction and coordinated animation, especially timelines, ScrollTrigger, pinning, scrub, parallax, or interaction polish.
+description: Design and implement motion-rich marketing frontends with purposeful GSAP animation. Use for landing pages, portfolios, brand sites, and redesigns that explicitly need coordinated timelines, ScrollTrigger pinning, scrub, parallax, or a motion audit. Preserve the existing stack and design system. Do not use for ordinary dashboards, forms, static pages, or simple hover and reveal effects that CSS can handle.
 ---
 
 # Taste + GSAP Frontend
 
-Use this as the single frontend design-and-motion director. Preserve the existing project's stack and brand assets unless the brief asks for a change.
+Use this skill as a focused design-and-motion workflow. Preserve the existing
+framework, viable brand assets, content, SEO, and accessibility behavior unless
+the brief asks for a change. User requirements override this skill.
 
-## Authority and division of labor
+## Operating contract
 
-1. Read the brief before coding. State one Design Read: page kind, audience, vibe, and design system.
-2. Taste controls visual intent: hierarchy, composition, typography, spacing, color, density, and whether motion is justified.
-3. GSAP controls implementation: tweens, timelines, easing, plugins, ScrollTrigger, lifecycle cleanup, responsive behavior, and performance.
-4. Never add motion merely because GSAP is available. Every animation must communicate hierarchy, narrative, feedback, or a state transition.
-5. Keep the skill's motion layer optional. If the user says “motion off”, set `MOTION_INTENSITY: 1`, do not import Motion or GSAP, and ship static CSS states only. Otherwise infer a 1–10 value from the brief; 1–3 means no automatic animation, 4–7 means restrained fluid motion, and 8–10 means advanced choreography.
+1. Inspect the project before choosing a visual direction or animation library.
+2. State a concise Design Read and Motion Map before implementation. If the
+   user asks for direct coding, keep this to a few lines and continue without
+   waiting for approval.
+3. Use the smallest motion system that communicates the intended hierarchy,
+   narrative, feedback, or state change. Do not add motion because GSAP is
+   available.
+4. Keep motion optional. If the user says motion off, use Static level, do not
+   import Motion or GSAP, and render content in its final visible state.
+5. Verify the result with the project's available build, lint, and test commands
+   plus the motion audit script when JavaScript or TypeScript is involved.
 
-## Workflow
+## 1. Read the project
 
-### 1. Read the room
+Identify the page kind, audience, product or brand constraints, visual signals,
+existing design tokens, framework, routing, asset loading, and current motion
+ownership. Inspect package metadata and existing components before adding a
+dependency. Preserve existing conventions when they are viable.
 
-Identify page kind, audience, vibe words, references, existing assets, accessibility or regulatory constraints, and whether this is greenfield or redesign. Do not default to purple gradients, centered dark mesh heroes, equal feature cards, generic glassmorphism, or Inter/slate-900.
+Do not default to purple gradients, centered dark mesh heroes, equal feature
+cards, generic glassmorphism, or Inter/slate-900. Choose a visual system that
+serves the content and state the reason briefly.
 
-Use a real design system where one applies. Keep hero copy concise, keep the initial viewport useful, and make mobile collapse rules explicit.
+## 2. Set the motion level
 
-### 2. Choose the motion layer
+Use the four levels in `references/motion-levels.md`. If a brief provides the
+legacy `MOTION_INTENSITY: 1–10`, map 1–3 to Static, 4–6 to Subtle, 7–8 to
+Directed, and 9–10 to Narrative.
 
-- **Static (`1–3`)**: no automatic entrance, scroll, marquee, parallax, or physics. Allow only useful CSS hover/focus/active feedback unless the user explicitly requests a one-off animation.
-- **Fluid (`4–7`)**: use CSS or Motion for simple reveals, layout transitions, and light interaction states. Use GSAP for coordinated sequences or effects that need precise control.
-- **Choreographed (`8–10`)**: use GSAP timelines and ScrollTrigger for motivated pin/scrub, sticky stacks, horizontal pans, or narrative sequences. Keep one marquee maximum per page.
+- **Static**: final-state layout with CSS feedback only.
+- **Subtle**: restrained CSS or an already-installed animation library.
+- **Directed**: coordinated GSAP timelines, stagger, or component transitions.
+- **Narrative**: ScrollTrigger pinning, scrub, parallax, or horizontal stories.
 
-Prefer Motion's `whileInView` for simple reveal-on-scroll if Motion is already present. Use GSAP for actual pinning, scrubbing, scroll hijacks, complex sequencing, plugins, or when the user explicitly requests GSAP. Do not mix two animation systems on the same property or component without a clear reason.
+Do not use Narrative behavior for a simple reveal. Do not use GSAP for a single
+hover, focus, opacity, or transform transition that CSS can express clearly.
 
-### 3. Implement safely
+## 3. Produce the Design Read and Motion Map
 
-- React/Next.js: isolate animated leaves as client components, prefer `useGSAP` or `gsap.context()`, scope selectors to a ref, and clean up on unmount.
-- Vue/Svelte/other frameworks: create animations in the framework mount lifecycle and revert/kill them on unmount.
-- ScrollTrigger: use `start: "top top"` for pinned sections when the section must begin at the viewport top; calculate dynamic distances in functions; refresh after layout-affecting assets load.
-- Timelines: use `gsap.timeline({ defaults })`, labels, and position parameters instead of scattered delays.
-- Performance: animate transforms and opacity; avoid layout-heavy properties; batch reads and writes; do not put continuous values in React state; never use a raw `window.addEventListener('scroll', ...)` loop.
-- Accessibility: respect `prefers-reduced-motion`; collapse pinning, parallax, infinite loops, and magnetic physics to static or instant behavior. Test keyboard focus and touch behavior.
-- Responsive behavior: use `gsap.matchMedia()` for breakpoint-specific setup and reduced-motion conditions, then revert it on teardown.
+Before editing, write:
 
-### 4. Verify before handoff
+```text
+Design Read: [page kind] for [audience]; [visual direction]; [type/layout/color system].
+Motion level: [Static | Subtle | Directed | Narrative].
+Motion Map:
+- [region] — [purpose] — [owner] — [trigger] — [mobile/reduced-motion fallback]
+```
 
-Check the design read, motion rationale, mobile behavior, reduced-motion fallback, cleanup, no raw scroll loop, no accidental layout shift, no duplicate marquee, and no motion that obscures content or interaction.
+Use `references/design-read.md` for the visual decision and
+`references/motion-levels.md` for the motion budget. Load only the other
+reference that matches the chosen framework or GSAP capability.
+
+## 4. Assign motion ownership
+
+- **CSS** owns hover, focus, active, simple reveal, color, and small transform
+  feedback when no coordination or scroll progress is needed.
+- **The existing animation system** owns layout transitions when the project
+  already uses Motion or another framework-native system.
+- **GSAP** owns coordinated sequences, ScrollTrigger pin/scrub/parallax,
+  timeline labels, gesture plugins, and interactions that need precise control.
+
+Never animate the same property from two animation systems without documenting
+the handoff. Load `references/gsap-selection.md` before selecting a plugin or
+ScrollTrigger pattern.
+
+## 5. Implement safely
+
+Follow `references/framework-lifecycles.md` for the active framework.
+
+- Scope selectors to a component root; prefer refs over global selectors.
+- Use `useGSAP` or `gsap.context()` in React/Next.js and revert on teardown.
+- Use the framework mount/unmount lifecycle in Vue, Svelte, and vanilla code.
+- Use `gsap.matchMedia()` for breakpoints and reduced-motion conditions.
+- Animate transforms and opacity before layout-heavy properties.
+- Keep ScrollTrigger on a top-level tween or timeline; use function-based
+  distances and refresh after fonts or images change layout.
+- Provide a touch and keyboard alternative for drag, gesture, or horizontal
+  storytelling interactions.
+- Collapse pinning, parallax, infinite loops, and magnetic physics under
+  `prefers-reduced-motion: reduce`; never hide essential content while waiting
+  for an animation that is skipped.
+- Keep at most one continuous marquee or loop per page unless the brief makes a
+  second loop essential and the performance cost is understood.
+- Never implement continuous scroll behavior with a raw `scroll` event loop or
+  per-frame React state updates.
+
+## 6. Verify before handoff
+
+Run the project's available checks. When source files are available, also run:
+
+```bash
+node scripts/audit-motion.mjs <source-or-project-path>
+```
+
+Use `--strict` in CI or when the user asks for a hard gate. Review
+`references/qa-checklist.md` and report any checks that could not run.
+
+Verify at minimum:
+
+- content is visible and usable with reduced motion;
+- keyboard focus and touch input remain usable;
+- desktop and narrow mobile layouts do not overflow or depend on hover;
+- dynamic ScrollTrigger distances refresh after layout changes;
+- contexts, media queries, and triggers clean up on unmount;
+- no raw scroll loop, duplicate marquee, or avoidable layout shift was added;
+- the chosen motion level is justified by the content.
 
 ## Reference routing
 
-The skill includes a compact GSAP knowledge base. Load the relevant reference before writing animation code; do not guess plugin APIs:
-
-- `references/gsap-catalog.md` — the available GSAP animation families, plugins, methods, and when to use them.
-- `references/gsap-patterns.md` — implementation skeletons for core tweens, timelines, ScrollTrigger, React, framework lifecycles, plugins, and reduced motion.
-- `references/gsap-selection.md` — choose among core, React/framework, timeline, ScrollTrigger, plugins, utils, and performance patterns.
-- `references/taste-variants.md` — adapt the visual direction using the companion Taste variants without loading every variant by default.
+- `references/design-read.md` — visual direction, tokens, density, and anti-template checks.
+- `references/motion-levels.md` — four motion levels, budgets, and fallbacks.
+- `references/framework-lifecycles.md` — React/Next, Vue/Nuxt, Svelte, and vanilla setup/cleanup.
+- `references/gsap-selection.md` — choose core, timeline, ScrollTrigger, plugins, utilities, or performance patterns.
+- `references/gsap-patterns.md` — concise implementation skeletons.
+- `references/gsap-catalog.md` — API families and when to use them.
+- `references/taste-variants.md` — optional visual variants; use only when the brief calls for one.
+- `references/qa-checklist.md` — acceptance checks and handoff format.
 
 ## Default response contract
 
-Before implementation, output the Design Read and the chosen `MOTION_INTENSITY`. Briefly identify which animation system owns each motion area. If motion is disabled, say so and do not smuggle in GSAP or Motion imports.
+Before implementation, provide the Design Read, motion level, and ownership of
+each motion area. At handoff, summarize changed files, checks run, reduced-motion
+behavior, mobile behavior, and any remaining limitation. Do not claim a check
+passed unless it actually ran.

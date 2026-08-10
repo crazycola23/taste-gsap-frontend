@@ -1,71 +1,89 @@
 # Taste + GSAP Frontend
 
-A Codex skill that combines Taste Skill's visual direction with GSAP motion engineering.
+A Codex skill for designing distinctive marketing frontends and implementing
+purposeful, accessible GSAP motion across React, Next.js, Vue, Svelte, and
+vanilla projects.
 
-Use it for landing pages, portfolios, brand sites, and redesigns built with React, Next.js, Vue, Svelte, or vanilla frontend code.
+It is intentionally a skill package, not a runnable frontend application. The
+skill is most useful when a page needs coordinated timelines, ScrollTrigger
+pinning, scrub, parallax, or an existing-motion audit.
 
-## What it provides
+## What changed in v2
 
-- Brief reading: page type, audience, visual language, and design system
-- Anti-template design rules for layout, typography, spacing, color, and density
-- `MOTION_INTENSITY` from static to advanced choreography
-- GSAP tweens, timelines, stagger, easing, ScrollTrigger, pin, scrub, and parallax
-- Plugin routing for Flip, Draggable, Observer, SplitText, MotionPath, and more
-- React/framework lifecycle cleanup, responsive breakpoints, performance, and reduced motion
-- A deliberate split: CSS/Motion for simple reveals, GSAP for coordinated or scroll-driven motion
+- narrower trigger boundaries so ordinary app UI does not activate the skill;
+- four named motion levels instead of relying only on a subjective 1–10 scale;
+- a required Design Read and Motion Map before implementation;
+- self-contained visual direction and token guidance;
+- framework-specific lifecycle and SSR guidance;
+- reduced-motion, mobile, keyboard, and cleanup acceptance checks;
+- `scripts/audit-motion.mjs` for deterministic static warnings;
+- `scripts/audit-motion.test.mjs` for a smoke test of the auditor.
 
-## Installation
+## Use
 
-Copy this directory into the Codex skills directory:
-
-```text
-~/.codex/skills/taste-gsap-frontend
-```
-
-On Windows:
-
-```text
-C:\Users\CX\.codex\skills\taste-gsap-frontend
-```
-
-## Usage
-
-Call the single combined skill:
+Explicitly invoke the skill when the task calls for it:
 
 ```text
-Use $taste-gsap-frontend to build this frontend page.
+Use $taste-gsap-frontend to build this landing page with a Directed motion level.
 ```
 
-To disable automatic motion:
+For a static page:
 
 ```text
 Use $taste-gsap-frontend with MOTION_INTENSITY: 1. Do not import Motion or GSAP.
 ```
 
-For complex scroll motion:
+For a narrative scroll sequence:
 
 ```text
-Use $taste-gsap-frontend and implement the sticky stack, ScrollTrigger scrub, and horizontal pan with GSAP.
+Use $taste-gsap-frontend to implement the sticky stack and horizontal story with ScrollTrigger, including mobile and reduced-motion fallbacks.
 ```
+
+## Audit the result
+
+From the skill directory, scan a frontend project or source folder:
+
+```bash
+node scripts/audit-motion.mjs /path/to/frontend
+node scripts/audit-motion.mjs --strict /path/to/frontend
+node scripts/audit-motion.test.mjs
+```
+
+The auditor reports common hazards such as raw scroll loops, missing cleanup
+signals, missing reduced-motion handling, unscoped selectors, per-frame state
+updates, and multiple infinite loops. It is a static warning tool, not a
+replacement for a browser pass.
 
 ## Structure
 
 ```text
 SKILL.md
-LICENSE
 agents/openai.yaml
 references/
+├─ design-read.md
+├─ framework-lifecycles.md
 ├─ gsap-catalog.md
 ├─ gsap-patterns.md
 ├─ gsap-selection.md
+├─ motion-levels.md
+├─ qa-checklist.md
 └─ taste-variants.md
+scripts/
+├─ audit-motion.mjs
+└─ audit-motion.test.mjs
+evals/
+└─ prompts.md
 ```
 
 ## Design and motion contract
 
-Taste decides why the page should look and move a certain way. GSAP decides how the motion is implemented reliably. Every animation must communicate hierarchy, narrative, feedback, or a state change; it must not exist only for decoration.
+Taste decides why the page should look and move a certain way. GSAP decides how
+coordinated motion is implemented reliably. Every animation must communicate
+hierarchy, narrative, feedback, or a state change; it must not exist only for
+decoration.
 
-Complex motion must support mobile behavior, keyboard interaction, `prefers-reduced-motion`, and component teardown cleanup.
+Complex motion must support mobile behavior, keyboard interaction,
+`prefers-reduced-motion`, and component teardown cleanup.
 
 ## License
 

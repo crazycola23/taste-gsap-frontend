@@ -9,19 +9,51 @@ Use this skill as a focused design-and-motion workflow. Preserve the existing
 framework, viable brand assets, content, SEO, and accessibility behavior unless
 the brief asks for a change. User requirements override this skill.
 
+Taste decides why the page should look and move a certain way. GSAP decides how
+coordinated motion is implemented reliably.
+
+The brief informs design decisions; it does not become product content.
+
 ## Operating contract
 
 1. Inspect the project before choosing a visual direction or animation library.
-2. State a concise Design Read and Motion Map before implementation. If the
+
+2. Treat task instructions as control-plane context, not product content.
+   Never derive, summarize, paraphrase, transform, or creatively reuse the
+   user's task description, design brief, implementation instructions,
+   requirements, acceptance criteria, Design Read, Motion Map, or developer
+   commentary as user-facing copy.
+
+3. User-facing copy may come only from:
+   - existing product content already present in the project;
+   - copy explicitly supplied by the user for the page;
+   - application or CMS data intended to be rendered;
+   - new copy the user explicitly asks you to write.
+
+   When copy is missing, preserve existing content or use minimal neutral
+   placeholders. Do not invent homepage headlines, taglines, feature claims,
+   badges, testimonials, navigation labels, or CTA copy from the task brief.
+
+4. State a concise Design Read and Motion Map before implementation. If the
    user asks for direct coding, keep this to a few lines and continue without
    waiting for approval.
-3. Use the smallest motion system that communicates the intended hierarchy,
+
+5. Use the smallest motion system that communicates the intended hierarchy,
    narrative, feedback, or state change. Do not add motion because GSAP is
    available.
-4. Keep motion optional. If the user says motion off, use Static level, do not
+
+6. Keep motion optional. If the user says motion off, use Static level, do not
    import Motion or GSAP, and render content in its final visible state.
-5. Verify the result with the project's available build, lint, and test commands
+
+7. Preserve existing user-facing copy unless the user explicitly asks to
+   rewrite, replace, shorten, localize, or otherwise modify it.
+
+8. Verify the result with the project's available build, lint, and test commands
    plus the motion audit script when JavaScript or TypeScript is involved.
+
+9. Before handoff, perform a content-provenance check in addition to the motion
+   QA. No implementation language, task language, Design Read wording, or
+   inferred marketing claims may leak into the rendered interface.
 
 ## 1. Read the project
 
@@ -29,6 +61,11 @@ Identify the page kind, audience, product or brand constraints, visual signals,
 existing design tokens, framework, routing, asset loading, and current motion
 ownership. Inspect package metadata and existing components before adding a
 dependency. Preserve existing conventions when they are viable.
+
+Treat product descriptions and task context discovered during this step as
+design inputs only. They may inform hierarchy, composition, density, visual
+tone, and motion decisions, but they are not automatically authorized sources
+of user-facing copy.
 
 Do not default to purple gradients, centered dark mesh heroes, equal feature
 cards, generic glassmorphism, or Inter/slate-900. Choose a visual system that
@@ -60,8 +97,10 @@ Motion Map:
 ```
 
 Use `references/design-read.md` for the visual decision and
-`references/motion-levels.md` for the motion budget. Load only the other
-reference that matches the chosen framework or GSAP capability.
+`references/motion-levels.md` for the motion budget. Always load
+`references/content-boundary.md` when the task creates or modifies user-facing
+frontend content. Load only the other technical reference that matches the
+chosen framework or GSAP capability.
 
 ## 4. Assign motion ownership
 
@@ -121,6 +160,7 @@ Verify at minimum:
 ## Reference routing
 
 - `references/design-read.md` — visual direction, tokens, density, and anti-template checks.
+- `references/content-boundary.md` — content provenance, copy preservation, and prevention of instruction-to-copy leakage.
 - `references/motion-levels.md` — four motion levels, budgets, and fallbacks.
 - `references/framework-lifecycles.md` — React/Next, Vue/Nuxt, Svelte, and vanilla setup/cleanup.
 - `references/gsap-selection.md` — choose core, timeline, ScrollTrigger, plugins, utilities, or performance patterns.

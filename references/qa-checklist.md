@@ -3,6 +3,17 @@
 Use this at handoff and report `pass`, `fail`, or `not run`. Do not claim a
 browser check passed when only static inspection was performed.
 
+## Content provenance
+
+- [ ] Task instructions do not appear verbatim or paraphrased in the rendered UI.
+- [ ] Design Read and Motion Map wording does not appear in user-facing copy.
+- [ ] Existing product copy was preserved unless the user explicitly requested a copy change.
+- [ ] Newly written marketing copy exists only when the user explicitly requested copywriting.
+- [ ] No product claim, benefit, tagline, testimonial, badge, or CTA was inferred from the implementation brief.
+- [ ] Navigation labels, feature names, and interface terminology were not renamed unnecessarily.
+- [ ] Missing content uses neutral placeholders rather than invented marketing language.
+- [ ] Motion was adapted to existing content rather than rewriting content to fit the animation.
+
 ## Behavior
 
 - [ ] First viewport communicates the page job without waiting for animation.
@@ -41,6 +52,7 @@ browser check passed when only static inspection was performed.
 ```text
 Checks: [commands and viewport checks actually run]
 Motion level: [Static | Subtle | Directed | Narrative]
+Content provenance: [preserved | explicitly rewritten | placeholders used]
 Reduced motion: [behavior]
 Mobile: [fallback behavior]
 Known limitations: [anything not verified]

@@ -7,12 +7,24 @@ Read is a short decision record, not a generic mood board.
 
 1. **Page kind** — brand, product, portfolio, editorial, event, or utility.
 2. **Audience and job** — who is arriving and what they should understand or do
-   in the first viewport.
+   in the first viewport. Use this only to determine hierarchy, composition,
+   density, emphasis, and motion. It is not a source of user-facing copy.
 3. **Visual direction** — two or three concrete adjectives plus one sentence
    explaining the contrast with a generic template.
 4. **System** — type roles, layout grammar, spacing rhythm, color roles, border
    and surface treatment, and content density.
 5. **Motion thesis** — what movement teaches, prioritizes, or confirms.
+
+## Content boundary
+
+The Design Read is an internal design artifact.
+
+Do not render its wording in the product. Do not summarize, paraphrase, polish,
+or transform its audience, job, visual direction, or motion thesis into hero
+copy, feature copy, navigation labels, badges, CTAs, or other visible text.
+
+Load `content-boundary.md` whenever a frontend task adds or modifies visible
+copy.
 
 ## Decision prompts
 

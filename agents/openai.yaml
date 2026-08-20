@@ -1,4 +1,10 @@
 interface:
   display_name: "Taste + GSAP Frontend"
   short_description: "Build purposeful, accessible GSAP motion"
-  default_prompt: "Use $taste-gsap-frontend to design and implement a motion-rich marketing frontend. Preserve the existing stack, state the motion level, and verify reduced-motion and mobile fallbacks."
+  default_prompt: >
+    Use $taste-gsap-frontend to design and implement a motion-rich marketing
+    frontend. Preserve the existing stack and existing product copy. Treat task
+    instructions as design context, not page content, and never derive
+    user-facing copy from the brief unless copywriting is explicitly requested.
+    State the motion level and verify content provenance, reduced-motion, and
+    mobile fallbacks.

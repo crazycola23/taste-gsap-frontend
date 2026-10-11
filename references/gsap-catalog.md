@@ -1,6 +1,10 @@
-# GSAP animation catalog
+# GSAP animation capability catalog
 
-Use this as the local menu of GSAP capabilities. Choose the smallest primitive that communicates the intended design idea. The catalog is grouped by the effect the user sees, not only by package name.
+This is a quick local index of the capabilities most often useful in marketing and brand frontends. It is organized by visible intent as well as API family. **It is not an exhaustive API reference and must not be treated as a ceiling on the result.** For advanced or version-sensitive work, read references/gsap-advanced-motion.md and consult the linked canonical GSAP docs.
+
+Choose the simplest implementation that fully delivers the requested effect. If the brief explicitly asks for cinematic or high-impact motion, do not collapse it to generic fades just because those are shorter to code.
+
+
 
 ## Core tween families
 
@@ -91,4 +95,4 @@ Use `gsap.utils` for animation math without unnecessary state:
 
 ## Selection rule
 
-If the user names an effect, map it to this catalog first. If the effect needs viewport progress or pinning, use ScrollTrigger. If it needs multi-step order, use a timeline. If it needs layout-state interpolation, use Flip. If it needs gesture input, use Draggable or Observer. If it is only a simple reveal, use CSS or Motion unless GSAP is explicitly requested.
+Map the requested visual intent to a capability, then check the advanced reference for details. ScrollTrigger is for meaningful scroll relationships; timelines are for time-based choreography; Flip is for layout-state interpolation; SplitText and SVG plugins support typographic/graphic choreography; Draggable and Observer serve deliberate input patterns. CSS is preferred for simple isolated feedback, but a high-ambition brief deserves a complete motion concept—not an automatic downgrade to simple reveals.

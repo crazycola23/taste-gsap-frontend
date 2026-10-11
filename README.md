@@ -53,6 +53,7 @@ agents/openai.yaml
 references/
 ├─ design-read.md
 ├─ framework-lifecycles.md
+├─ content-boundary.md
 ├─ gsap-advanced-motion.md
 ├─ gsap-catalog.md
 ├─ gsap-patterns.md

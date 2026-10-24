@@ -1,21 +1,49 @@
 # Taste + GSAP Frontend
 
-A Codex skill for designing distinctive marketing frontends and implementing purposeful GSAP motion across React, Next.js, Vue, Svelte, and vanilla projects.
+A skill for coding agents that combines **tasteskill v2** (art direction distilled from a study of
+247 curated gallery sites, synced from [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)
+2.1.4) with a **deliberate GSAP motion layer**: purposeful motion from restrained to cinematic
+across React, Next.js, Vue, Svelte and vanilla projects.
 
-It combines Taste-style art direction and content discipline with a capability-oriented GSAP implementation workflow. The goal is not maximum animation everywhere: it is a visual result that matches the brief, from restrained to cinematic, without hiding technical options behind an over-conservative default.
+Taste decides why the page should look and move a certain way. GSAP provides the mechanics for
+executing that direction reliably. The goal is not maximum animation everywhere: it is a visual
+result that matches the brief, from quiet to cinematic, without hiding technical options behind an
+over-conservative default and without shipping the average AI landing page.
 
-## What changed in v3
+## What the sync brings in from tasteskill v2 (2.1.4)
 
-- separated motion mode (Static/Subtle/Directed/Narrative) from creative ambition (restrained/expressive/cinematic);
-- corrected the legacy numeric intensity mapping so 9–10 means high ambition, not automatically scroll-driven Narrative;
-- made the capability catalog explicitly an index, not a ceiling on advanced GSAP usage;
-- added an advanced-motion playbook for SplitText, SVG, Flip, ScrollTrigger architecture, interaction plugins, and performance guardrails;
-- added forward-test prompts for cinematic intent, advanced capability selection, and avoiding generic under-delivery;
-- retained the Design Read, Motion Map, content provenance, framework lifecycle, reduced-motion, mobile, and cleanup requirements.
+- **The dealt direction:** `scripts/draw.mjs` deals researched directions, hero and section
+  compositions, type systems of free fonts, palettes, photographs, motions and scroll scenes from
+  `library/` (distilled from 247 studied sites). Adopt, don't blend.
+- **Real pictures, credited:** `scripts/assets.mjs` searches Openverse, Wikimedia Commons, the Art
+  Institute of Chicago and the Met (no API keys) for pictures of the subject's world; `--get`
+  downloads with the licence, `--credits` prints the footer line. `--video` finds open-licence
+  footage.
+- **A measured house style:** `scripts/lint.mjs` scans source; `scripts/inspect.mjs` opens the page
+  in a real browser at 1440/768/390 and measures the rules (headline line counts, eyebrows,
+  gradients, resting shadows, the assistant palette, the frame, still-page floor, and more).
+- **Scroll scenes:** the shared GSAP/Lenis stage in `assets/scenes/` and `scripts/scenes.mjs`, which
+  photographs every scene at 0–100% of its hold, on desktop, phone and under reduced motion.
+- **App screens:** dashboards, admin, settings and inboxes get their own run, draw (`draw.mjs
+  --app`), shell and charts (`assets/app.css`, `assets/charts.js`) and inspector rules
+  (`references/app-screens.md`).
+- **The look-and-fix loop:** screenshot critique with an Awwwards-weighted rubric
+  (`references/critique.md`), fix the top three, repeat, at most three rounds.
+- **The redesign route:** record the before, keep the stack and content, prove the after.
+
+## What the GSAP layer keeps from this repo
+
+- **Motion mode and creative ambition as separate decisions** (Static / Subtle / Directed /
+  Narrative × restrained / expressive / cinematic), with the legacy `MOTION_INTENSITY` mapping.
+- **The Design Read and Motion Map**, stated before implementation and never rendered as content.
+- **Engine routing:** CSS for the quiet layer, GSAP for coordinated sequences (timelines, SplitText,
+  Flip, MotionPath, ScrollTrigger pinning/scrubbing/parallax/horizontal), existing systems for what
+  they already own — the catalog is an index, not a ceiling.
+- **Content provenance on existing products:** the brief is design context, never product copy.
+- **`scripts/audit-motion.mjs`:** static scan for raw scroll loops, missing cleanup, missing
+  reduced-motion fallbacks, unscoped selectors, per-frame state updates and stacked infinite loops.
 
 ## Use
-
-Explicitly invoke the skill when the task calls for it:
 
 ~~~text
 Use $taste-gsap-frontend to build this landing page with a Directed mode and cinematic creative ambition.
@@ -27,54 +55,64 @@ For a static page:
 Use $taste-gsap-frontend with MOTION_INTENSITY: 1. Do not add an animation dependency.
 ~~~
 
-For a narrative scroll sequence:
+For a full taste run on a fresh page, the skill's 11-step run covers it end to end: inventory,
+argument, dealt direction, idea, Design Read + Motion Map, copy deck, still build (real pictures,
+live thing, scroll scenes), the gate, the look, the motion layer, the report.
 
-~~~text
-Use $taste-gsap-frontend to create a chapter-based product story with ScrollTrigger pinning and scrub, with mobile and reduced-motion fallbacks.
+## Install
+
+~~~bash
+npx skills add https://github.com/crazycola23/taste-gsap-frontend --skill taste-gsap-frontend
 ~~~
+
+or from a checkout: `./install.sh` (Claude Code), `./install.sh --codex`, or `./install.sh
+--all-agents` (symlinks, so `git pull` updates in place).
+
+## Requirements
+
+Node 22+ and an installed Chrome, Edge or Chromium for the inspector; Node 18+ for `draw.mjs`,
+`lint.mjs`, `assets.mjs` and `audit-motion.mjs`. Nothing is installed by the scripts; no API keys.
+A full run takes an agent roughly 30–45 minutes and a few hundred thousand tokens.
 
 ## Audit the result
 
-From the skill directory, scan a frontend project or source folder:
-
 ~~~bash
-node scripts/audit-motion.mjs /path/to/frontend
-node scripts/audit-motion.mjs --strict /path/to/frontend
-node scripts/audit-motion.test.mjs
+node skills/taste-gsap-frontend/scripts/audit-motion.mjs /path/to/frontend
+node skills/taste-gsap-frontend/scripts/audit-motion.mjs --strict /path/to/frontend
+node skills/taste-gsap-frontend/scripts/audit-motion.test.mjs
 ~~~
-
-The auditor reports common hazards such as raw scroll loops, missing cleanup signals, missing reduced-motion handling, unscoped selectors, per-frame state updates, and multiple infinite loops. It is a static warning tool, not a replacement for a browser pass.
 
 ## Structure
 
 ~~~text
-SKILL.md
-agents/openai.yaml
-references/
-├─ design-read.md
-├─ framework-lifecycles.md
-├─ content-boundary.md
-├─ gsap-advanced-motion.md
-├─ gsap-catalog.md
-├─ gsap-patterns.md
-├─ gsap-selection.md
-├─ motion-levels.md
-├─ qa-checklist.md
-└─ taste-variants.md
-scripts/
-├─ audit-motion.mjs
-└─ audit-motion.test.mjs
-evals/
-├─ advanced-motion-prompts.md
-└─ prompts.md
+skills/taste-gsap-frontend/
+├─ SKILL.md                    the 11-step run, house rules, laws, special cases
+├─ agents/openai.yaml          Codex interface
+├─ references/                 21 files: tasteskill core + GSAP layer
+├─ scripts/                    draw, assets, lint, inspect, scenes, audit-motion (+ lib/)
+├─ library/                    the dealt data: directions, heroes, sections, type, palettes,
+│                              photos, sites, motions, app styles
+├─ assets/                     base.css/js, scenes/ (stage + demos), app.css, charts.js
+└─ evals/                      evals.json + motion forward-test prompts
+tests/                         frontmatter, profile-cleanup (CI: .github/workflows/check-skills.yml)
+.claude-plugin/ .codex-plugin/ .agents/plugins/   plugin manifests
+install.sh                     symlink installer
 ~~~
 
 ## Design and motion contract
 
-Taste decides why the page should look and move a certain way. GSAP decides how coordinated motion is implemented reliably. The skill must respect the requested level of expression; accessibility, performance, and lifecycle safety are acceptance criteria, not reasons to replace an ambitious brief with a generic effect.
+Taste decides why the page looks and moves a certain way; GSAP decides how coordinated motion is
+implemented reliably. The skill respects the requested level of expression; accessibility,
+performance, lifecycle cleanup and the measured house rules are acceptance criteria, not reasons to
+replace an ambitious brief with a generic effect — and never a licence to break the readability of
+the page.
 
-Complex motion must support mobile behavior, keyboard interaction, prefers-reduced-motion, and component teardown cleanup.
+Complex motion must support mobile behavior, keyboard interaction, `prefers-reduced-motion`, and
+component teardown cleanup.
 
-## License
+## Credits and license
 
-MIT
+The art-direction core (SKILL.md run, house rules, references, library, scripts, assets) comes from
+[Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (MIT), synced at 2.1.4. The
+motion-engineering layer (motion modes, Design Read/Motion Map, GSAP references, audit-motion) is
+this repository's work. MIT.

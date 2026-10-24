@@ -4,8 +4,9 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 
-const root = path.resolve(new URL("..", import.meta.url).pathname);
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const tempDir = fs.mkdtempSync(path.join(root, ".audit-test-"));
 const badFile = path.join(tempDir, "bad.tsx");
 const goodFile = path.join(tempDir, "good.tsx");

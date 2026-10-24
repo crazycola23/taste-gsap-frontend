@@ -1,0 +1,37 @@
+{
+  "name": "taste-gsap-frontend",
+  "version": "4.0.0",
+  "description": "tasteskill v2 with the GSAP motion layer: art direction for pages, product pages, dashboards and app screens, checked in a real browser, plus deliberate motion engineering.",
+  "author": {
+    "name": "crazycola23",
+    "url": "https://github.com/crazycola23"
+  },
+  "homepage": "https://github.com/crazycola23/taste-gsap-frontend",
+  "repository": "https://github.com/crazycola23/taste-gsap-frontend",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "frontend",
+    "design",
+    "taste",
+    "gsap",
+    "motion",
+    "ui"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Taste + GSAP Frontend",
+    "shortDescription": "tasteskill v2 art direction with deliberate GSAP motion.",
+    "longDescription": "tasteskill v2 (Leonxlnx/taste-skill 2.1.4) synced with the GSAP motion layer: researched directions dealt from a library, real pictures from open collections, a real-browser inspector, scroll scenes on a GSAP stage, and motion mode/creative ambition engineering with reduced-motion, mobile and cleanup guarantees.",
+    "developerName": "crazycola23",
+    "category": "Design",
+    "capabilities": [],
+    "websiteURL": "https://github.com/crazycola23/taste-gsap-frontend",
+    "defaultPrompt": [
+      "Design a distinctive frontend without generic AI patterns, with deliberate motion.",
+      "Redesign this interface while preserving its brand and content.",
+      "Build the dashboard for this product with real data and charts.",
+      "Add a coordinated GSAP scroll narrative to this page with reduced-motion and mobile fallbacks."
+    ]
+  }
+}

@@ -1,7 +1,9 @@
 # Design Read
 
-Use this reference only when choosing or auditing visual direction. A Design
-Read is a short decision record, not a generic mood board.
+Use this reference when writing the Design Read and Motion Map in step 5 of the run. A Design
+Read is a short decision record, not a generic mood board. The visual direction and system fields
+are filled from the dealt direction sheet (`scripts/draw.mjs`), not invented here; this record says
+why the dealt system fits this subject, and what movement is for.
 
 ## Required fields
 

@@ -1,0 +1,23 @@
+{
+  "name": "taste-gsap-frontend",
+  "description": "tasteskill v2 with the GSAP motion layer: art direction for coding agents, for pages, product pages, dashboards and app screens, checked in a real browser, plus deliberate GSAP motion engineering.",
+  "owner": {
+    "name": "crazycola23"
+  },
+  "plugins": [
+    {
+      "name": "taste-gsap-frontend",
+      "description": "tasteskill v2 synced with a GSAP motion layer: researched directions, real pictures from open collections, a real-browser inspector, scroll scenes on a GSAP stage, and motion mode/ambition engineering with cleanup and reduced-motion guarantees.",
+      "version": "4.0.0",
+      "source": "./",
+      "skills": ["./skills/taste-gsap-frontend"],
+      "author": {
+        "name": "crazycola23"
+      },
+      "homepage": "https://github.com/crazycola23/taste-gsap-frontend",
+      "repository": "https://github.com/crazycola23/taste-gsap-frontend",
+      "license": "MIT",
+      "keywords": ["skills", "frontend", "design", "taste", "gsap", "motion", "ui", "dashboard"]
+    }
+  ]
+}

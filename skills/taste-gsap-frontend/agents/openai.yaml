@@ -1,0 +1,13 @@
+interface:
+  display_name: "Taste + GSAP Frontend"
+  short_description: "tasteskill v2 art direction with deliberate GSAP motion"
+  default_prompt: >
+    Use $taste-gsap-frontend to design and implement a distinctive frontend: deal
+    an art direction from the library, build the page with real content and
+    credited pictures, and engineer motion deliberately with motion mode and
+    creative ambition decided separately. On existing projects preserve the
+    stack and existing product copy; treat task instructions as design context,
+    not page content. Match the requested level of expression; do not flatten a
+    cinematic or high-impact brief into generic fades just because they are
+    simpler. Pass the gate scripts and the motion audit, and report checks
+    truthfully, including reduced-motion behavior, mobile fallbacks, and cleanup.

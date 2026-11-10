@@ -36,6 +36,7 @@ function collectFiles(inputPath) {
 
   const files = [];
   for (const entry of fs.readdirSync(absolute, { withFileTypes: true })) {
+    if (entry.isSymbolicLink()) continue;
     if (entry.isDirectory() && IGNORED_DIRECTORIES.has(entry.name)) continue;
     const child = path.join(absolute, entry.name);
     if (entry.isDirectory()) files.push(...collectFiles(child));
@@ -59,17 +60,17 @@ function analyze(filePath, source) {
     return match ? source.slice(0, match.index).split("\n").length : 1;
   };
 
-  const hasGsap = /\bgsap\s*\.|\bScrollTrigger\b|\buseGSAP\b/.test(source);
+  const motionCode = /\bgsap\s*\.|\bScrollTrigger\b|\bscrollTrigger\s*:|\buseGSAP\b/;
+  const hasGsap = motionCode.test(source);
   const hasCleanup = hasAny(source, [
-    /gsap\.context\s*\(/, /\buseGSAP\s*\(/, /\.revert\s*\(/, /\.kill\s*\(/,
-    /onBeforeUnmount\s*\(/, /onUnmounted\s*\(/, /onMount\s*\(/, /useLayoutEffect\s*\(/,
+    /\buseGSAP\s*\(/, /\.revert\s*\(/, /\.kill\s*\(/,
   ]);
 
   const rawScrollHandler = /(?:addEventListener\s*\(\s*["'`]scroll|window\.onscroll)/;
   const scrollReadLoop = /(?:\bscrollY\b|\bpageYOffset\b)[\s\S]{0,160}(?:requestAnimationFrame|set[A-Z][A-Za-z0-9_]*\s*\()/;
   const rawScroll = rawScrollHandler.test(source) ? rawScrollHandler : scrollReadLoop;
-  if (rawScroll.test(source)) {
-    add("RAW_SCROLL", "Prefer ScrollTrigger or an Observer instead of a hand-rolled scroll loop.", lineOf(rawScroll));
+  if (rawScroll.test(source) && (hasGsap || /requestAnimationFrame|\.style\s*[.[]|\bset[A-Z]\w*\s*\(/.test(source))) {
+    add("RAW_SCROLL", "Review this scroll-driven visual update: prefer the existing kit driver or scoped ScrollTrigger; avoid duplicate loops.", lineOf(rawScroll));
   }
 
   if (hasGsap && !hasCleanup) {
@@ -77,10 +78,11 @@ function analyze(filePath, source) {
     add("NO_CLEANUP", "GSAP or ScrollTrigger code has no obvious scoped lifecycle cleanup.", lineOf(lifecycle));
   }
 
-  const hasScrollTrigger = /\bScrollTrigger\b/.test(source);
-  const reducedMotion = /prefers-reduced-motion|reduceMotion|reducedMotion|matchMedia\s*\(/;
-  if (hasScrollTrigger && !reducedMotion.test(source)) {
-    add("NO_REDUCED_MOTION", "Scroll-driven motion should provide a reduced-motion or static fallback.", lineOf(/\bScrollTrigger\b/));
+  // A breakpoint-only matchMedia is not a reduced-motion fallback. Load timelines
+  // need a fallback too, even without a ScrollTrigger import.
+  const reducedMotion = /prefers-reduced-motion|\breduceMotion\b|\breducedMotion\b/;
+  if (hasGsap && !reducedMotion.test(source)) {
+    add("NO_REDUCED_MOTION", "Motion code has no obvious reduced-motion or static fallback.", lineOf(motionCode));
   }
 
   const unscopedSelector = /gsap\.(?:to|from|fromTo|set)\s*\(\s*["'`][.#]/;
@@ -104,6 +106,8 @@ function analyze(filePath, source) {
 
 function main() {
   const args = process.argv.slice(2);
+  const unknown = args.find((arg) => arg.startsWith("-") && !["--strict", "--json", "--help", "-h"].includes(arg));
+  if (unknown) throw new Error(`Unknown option: ${unknown}`);
   const strict = args.includes("--strict");
   const json = args.includes("--json");
   const paths = args.filter((arg) => !arg.startsWith("--"));

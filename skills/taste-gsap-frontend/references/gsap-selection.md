@@ -31,32 +31,9 @@ This is a decision index, not a limit on animation ambition. Pick the smallest c
 - Never implement continuous scroll-linked motion with a raw scroll event or per-frame React state updates.
 - For reduced motion, remove nonessential movement and pinning but keep content and state immediately available.
 
-## Canonical React pattern
+## Implementation examples
 
-~~~tsx
-const root = useRef<HTMLDivElement>(null);
-
-useGSAP(() => {
-  const mm = gsap.matchMedia();
-  mm.add({
-    desktop: "(min-width: 768px)",
-    reduceMotion: "(prefers-reduced-motion: reduce)",
-  }, ({ conditions }) => {
-    const { desktop, reduceMotion } = conditions as {
-      desktop: boolean;
-      reduceMotion: boolean;
-    };
-    if (reduceMotion) return;
-
-    const tl = gsap.timeline({
-      defaults: { duration: desktop ? 0.7 : 0.45, ease: "power2.out" },
-    });
-    tl.from(".hero-line", { y: 24, autoAlpha: 0, stagger: 0.08 });
-  });
-}, { scope: root });
-~~~
-
-The useGSAP scope should own animations created inside it. If an animation, plugin listener, media query, or observer is created outside that scope, add explicit teardown and call revert/kill as appropriate.
+Use gsap-patterns.md for registered, scoped React and scroll examples with reduced-motion and teardown. Read integration.md before combining these with the upstream kit; do not animate a property already owned by the kit.
 
 ## Canonical references
 

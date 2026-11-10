@@ -1,7 +1,7 @@
 {
   "name": "taste-gsap-frontend",
-  "version": "4.0.0",
-  "description": "tasteskill v2 with the GSAP motion layer: art direction for pages, product pages, dashboards and app screens, checked in a real browser, plus deliberate motion engineering.",
+  "version": "5.0.0",
+  "description": "Complete tasteskill 2.5.1 website kit with deliberate GSAP motion, scoped task routes, preserved product content and accessible fallbacks.",
   "author": {
     "name": "crazycola23",
     "url": "https://github.com/crazycola23"
@@ -21,8 +21,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Taste + GSAP Frontend",
-    "shortDescription": "tasteskill v2 art direction with deliberate GSAP motion.",
-    "longDescription": "tasteskill v2 (Leonxlnx/taste-skill 2.1.4) synced with the GSAP motion layer: researched directions dealt from a library, real pictures from open collections, a real-browser inspector, scroll scenes on a GSAP stage, and motion mode/creative ambition engineering with reduced-motion, mobile and cleanup guarantees.",
+    "shortDescription": "Taste 2.5.1 design with deliberate GSAP motion.",
+    "longDescription": "Complete tasteskill 2.5.1 website kit with deliberate GSAP motion, scoped task routes, preserved product content and accessible fallbacks. Motion mode and creative ambition are independent; the kit and custom GSAP have explicit ownership. Includes a source audit and a pinned upstream file inventory.",
     "developerName": "crazycola23",
     "category": "Design",
     "capabilities": [],

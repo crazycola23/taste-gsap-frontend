@@ -7,22 +7,26 @@ on:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Every SKILL.md frontmatter parses (as Claude Code and Codex parse it)
-        run: |
-          npm install --no-save --no-package-lock yaml@2.6.1
-          node tests/frontmatter.mjs
-      - name: Scripts parse
-        run: |
-          for f in skills/*/scripts/*.mjs skills/*/scripts/lib/*.mjs skills/*/assets/*.js; do
-            node --check "$f" || exit 1
-          done
+      - name: Install validation dependency
+        run: npm install --no-save --no-package-lock yaml@2.6.1
+      - name: Skill frontmatter and plugin manifests
+        run: node tests/frontmatter.mjs
+      - name: UTF-8 encoding
+        run: node tests/text-encoding.mjs
+      - name: Complete pinned upstream snapshot
+        run: node tests/upstream-integrity.mjs
+      - name: Scripts and nested assets parse
+        run: node tests/scripts-parse.mjs
       - name: Motion audit self-test
         run: node skills/taste-gsap-frontend/scripts/audit-motion.test.mjs
-      - name: Browser profile cleanup regression
-        run: node --test tests/profile-cleanup.mjs
+      - name: Motion audit regressions
+        run: node --test tests/motion-audit.mjs

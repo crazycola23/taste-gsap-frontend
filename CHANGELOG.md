@@ -4,6 +4,40 @@ All notable changes to taste-gsap-frontend live here.
 
 ---
 
+## 5.0.0 - 2026-11-10
+
+Synced the complete tasteskill **2.5.1** kit from `Leonxlnx/taste-skill` at
+`f6b76575f949707b4e3c37cd86cb44b0b98643e8` (1,631 files).
+
+### Upstream migration
+
+- Adopted the 2.5 system, layouts, trade palettes/type, photographs, icons, UI,
+  diagrams, effects, objects, moments, scenes and all current dealers/checks.
+- Replaced retired 2.1 draw/inspect/lint/stage assets with current tools. Kept the
+  exact upstream workflow as `references/taste-workflow.md`.
+- Synced UTF-8 validation, the real-browser kit regression and Windows-capable
+  link installation. Recorded every upstream file in `upstream.lock.json`.
+
+### GSAP integration improvements
+
+- Replaced the long entry with task routes and progressive reference loading.
+- Resolved conflicting defaults for Static/Subtle, existing real content/brands,
+  Next.js server rendering, app screens and component-only work.
+- Defined one animation owner per property; prevent duplicate kit/GSAP entrances,
+  nested pinning and smooth-scroll engines. Documented real-playback inspection.
+- Fixed React patterns: register useGSAP, include phones in media queries, scope
+  selectors, provide reduced-motion states and clean up media contexts.
+- Tightened the audit: mount hooks/context creation alone no longer imply cleanup;
+  breakpoint-only matchMedia no longer implies reduced motion; inline scrollTrigger
+  and load timelines are checked; analytics-only scroll listeners avoid GSAP advice.
+- Added six audit regressions, complete upstream integrity and recursive script
+  parsing in Linux/Windows CI. Gate waivers and unresolved OPEN states stay visible.
+
+The fork runs the manual website gate by default; importing the upstream workflow
+does not install its Stop hook. Install name remains `taste-gsap-frontend`.
+
+---
+
 ## 4.0.0 - 2026-10-24
 
 Synced with upstream tasteskill v2 ([Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)

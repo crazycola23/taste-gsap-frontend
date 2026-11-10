@@ -55,12 +55,9 @@ for (const rel of ['.claude-plugin/marketplace.json', '.codex-plugin/plugin.json
   for (const plugin of j.plugins || []) for (const s of [].concat(plugin.skills || [])) if (!existsSync(join(ROOT, s, 'SKILL.md'))) fail(rel, `plugin "${plugin.name}" lists ${s}, which has no SKILL.md`);
 }
 
-// every skill's data files
-for (const dir of readdirSync(SKILLS)) {
-  if (!statSync(join(SKILLS, dir)).isDirectory() || !existsSync(join(SKILLS, dir, 'SKILL.md'))) continue;
-  const lib = join(SKILLS, dir, 'library');
-  if (existsSync(lib)) for (const f of readdirSync(lib)) if (f.endsWith('.json')) { try { JSON.parse(readFileSync(join(lib, f), 'utf8')); } catch (e) { fail(`skills/${dir}/library/${f}`, 'invalid JSON: ' + e.message); } }
-}
+// the default skill's data files
+const lib = join(SKILLS, 'taste-skill', 'library');
+if (existsSync(lib)) for (const f of readdirSync(lib)) if (f.endsWith('.json')) { try { JSON.parse(readFileSync(join(lib, f), 'utf8')); } catch (e) { fail(`skills/taste-skill/library/${f}`, 'invalid JSON: ' + e.message); } }
 
 if (errors.length) {
   console.error(`not ok - ${errors.length} problem(s):`);

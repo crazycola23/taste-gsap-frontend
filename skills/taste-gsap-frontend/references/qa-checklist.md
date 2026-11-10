@@ -1,59 +1,44 @@
 # Motion QA checklist
 
-Use this at handoff and report `pass`, `fail`, or `not run`. Do not claim a
-browser check passed when only static inspection was performed.
+Mark each relevant item pass, fail or not run. Static checks do not prove behavior.
 
-## Content provenance
+## Scope and content
 
-- [ ] Task instructions do not appear verbatim or paraphrased in the rendered UI.
-- [ ] Design Read and Motion Map wording does not appear in user-facing copy.
-- [ ] Existing product copy was preserved unless the user explicitly requested a copy change.
-- [ ] Newly written marketing copy exists only when the user explicitly requested copywriting.
-- [ ] No product claim, benefit, tagline, testimonial, badge, or CTA was inferred from the implementation brief.
-- [ ] Navigation labels, feature names, and interface terminology were not renamed unnecessarily.
-- [ ] Missing content uses neutral placeholders rather than invented marketing language.
-- [ ] Motion was adapted to existing content rather than rewriting content to fit the animation.
+- Existing copy, real contacts, brand and rendering model are preserved as requested.
+- Fresh-page copy follows supplied facts; no invented proof or implementation prose.
+- Sources and stand-ins have credits; missing facts/integrations are disclosed.
+- App screens and small components are not forced through the full website workflow.
 
-## Behavior
+## Motion and input
 
-- [ ] First viewport communicates the page job without waiting for animation.
-- [ ] Essential text and controls remain available if animation is interrupted.
-- [ ] Keyboard focus is visible and never moves behind a pin or transformed
-      container.
-- [ ] Touch users have a non-hover, non-drag alternative for essential actions.
-- [ ] Resize and orientation changes do not leave stale transforms or triggers.
+- Each animated property has one owner: kit, CSS, existing system or GSAP.
+- The first screen communicates its purpose without waiting for animation.
+- Intermediate frames, interruption and final states are readable.
+- Keyboard focus remains visible; essential actions work with touch and keyboard.
+- Static mode has no entrances, loops, autoplay, pins or motion dependencies.
 
-## Reduced motion
+## Reduced motion and lifecycle
 
-- [ ] `prefers-reduced-motion: reduce` removes or collapses automatic motion.
-- [ ] Pinned, scrubbed, parallax, physics, and infinite-loop behavior has a
-      static or normal-flow fallback.
-- [ ] Content is rendered in its final visible state rather than hidden by a
-      skipped entrance animation.
+- Test reduced motion at initial load and when the preference changes.
+- Skipped animations leave final content visible; phone layouts have no hover dependency.
+- Desktop/phone resize and back restores the intended geometry.
+- Unmount/remount does not accumulate timelines, triggers, media handlers or listeners.
+- Dynamic distances refresh after layout changes, not on every frame.
 
-## Performance and cleanup
+## Performance and checks
 
-- [ ] Transforms and opacity are preferred over repeated layout properties.
-- [ ] No raw scroll event loop or per-frame application state update exists.
-- [ ] ScrollTrigger distances are dynamic when content dimensions can change.
-- [ ] Component teardown reverts contexts and kills independently-created
-      triggers, timelines, and media-query handlers.
-- [ ] There is no duplicate marquee or unbounded `will-change` usage.
+- Prefer transforms/opacity; avoid per-frame application state and duplicate scroll drivers.
+- Run the project's applicable build/lint/tests and audit changed custom GSAP source.
+- For full sites, run the full consistency pass as well as the quick finish gate.
+- Kit screenshots may settle motion; inspect playback with documented live mode.
+- Report gate waivers and remaining OPEN findings; neither is an unconditional pass.
 
-## Responsive layout
-
-- [ ] Narrow mobile layout is intentional and does not depend on hover.
-- [ ] Horizontal stories have a normal-flow or swipe-friendly mobile fallback.
-- [ ] Images and fonts settle without a large layout shift before refresh.
-- [ ] Pinned sections do not trap keyboard focus or obscure the next section.
-
-## Handoff format
+## Handoff
 
 ```text
-Checks: [commands and viewport checks actually run]
-Motion level: [Static | Subtle | Directed | Narrative]
-Content provenance: [preserved | explicitly rewritten | placeholders used]
-Reduced motion: [behavior]
-Mobile: [fallback behavior]
-Known limitations: [anything not verified]
+Checks: commands and browser states actually exercised.
+Motion: mode + ambition; region ownership and purpose.
+Fallbacks: reduced motion, phone, missing script.
+Content: preserved/newly commissioned; sources, stand-ins and unresolved facts.
+Limitations: skipped checks, open failures, waivers and integration gaps.
 ```

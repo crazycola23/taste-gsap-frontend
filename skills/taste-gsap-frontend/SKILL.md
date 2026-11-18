@@ -82,8 +82,11 @@ plugin; the catalog is an index, not a ceiling.
 
 For a full website, run the upstream copy, consistency, layout, performance and finish
 gate commands. For components, motion-only work and app screens, run the project's
-relevant checks and inspect the changed UI at desktop and phone widths; no unrelated
-website gate. Whenever custom GSAP is written, run:
+relevant checks and inspect the changed UI at desktop and phone widths.
+For implementation and review of bordered or filled UI, apply the rendered
+content-inset check in `references/content-insets.md`. A surface that fits the
+viewport still needs measured clearance between its own edge and its content.
+Whenever custom GSAP is written, run:
 
 ```bash
 node <skill>/scripts/audit-motion.mjs --strict <changed-source-files-or-folder>

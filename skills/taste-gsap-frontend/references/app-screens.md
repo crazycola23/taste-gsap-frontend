@@ -14,8 +14,11 @@ hero entrances, moments and fixed screen-height sections do not apply.
    change; preserve focus and an instant reduced-motion equivalent. Never animate
    typing or per-frame values through framework state.
 5. Run project checks and exercise the task with keyboard, touch and a narrow viewport.
-   Capture before/after for redesigns. Run `audit-motion.mjs` for custom GSAP changes;
-   do not arm the website finish gate.
+   Measure content insets on affected rows, cards, forms, sticky bars and table
+   boundaries using `content-insets.md`. Include the active theme, longest real
+   content, and relevant zoom or large-text modes. Capture before/after for
+   redesigns. Run `audit-motion.mjs` for custom GSAP changes. App screens use
+   their own checks and leave the website finish gate inactive.
 
 Read `content-boundary.md` for copy, `framework-lifecycles.md` for the active stack,
 and `qa-checklist.md` for motion verification.

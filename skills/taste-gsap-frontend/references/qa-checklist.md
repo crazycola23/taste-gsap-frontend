@@ -33,10 +33,19 @@ Mark each relevant item pass, fail or not run. Static checks do not prove behavi
 - Kit screenshots may settle motion; inspect playback with documented live mode.
 - Report gate waivers and remaining OPEN findings; neither is an unconditional pass.
 
+## Rendered layout
+
+- Measure the four inner edges of affected painted surfaces against real labels,
+  badges and actions. Use `content-insets.md` for selectors, minimums and evidence.
+- Check the final theme cascade at the normal and smallest supported widths.
+  Include wrapping, large text/zoom and sticky or keyboard-focus states where relevant.
+- Check native fieldset legends and table captions against the intended boundary.
+
 ## Handoff
 
 ```text
 Checks: commands and browser states actually exercised.
+Layout: measured surfaces, active states, minimums and smallest observed gaps.
 Motion: mode + ambition; region ownership and purpose.
 Fallbacks: reduced motion, phone, missing script.
 Content: preserved/newly commissioned; sources, stand-ins and unresolved facts.

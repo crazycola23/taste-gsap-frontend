@@ -12,3 +12,9 @@ Give each prompt to an evaluator with the active skill and the smallest real fix
    Inspect that review remains read-only and never arms or installs a finish hook.
 5. "Create a new product page from these product facts; no customer testimonials exist."
    Inspect usable fact-based copy, no invented social proof, and stand-in image disclosure.
+6. "Quickly review this app's bordered task rows before release. They fit the
+   viewport. The app theme applies `padding: 12px 0`, and each row has a status
+   chip, a long title and an action. The filters contain a fieldset legend."
+   Require live measurements of the inset from both row edges to the chip and
+   action, with explicit CSS pixel minimums and evidence at desktop and narrow
+   sizes. Inspect the native legend and keep the app's website gate inactive.

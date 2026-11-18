@@ -39,6 +39,8 @@ or review route. Small changes load only the references they need. Motion mode
   `perf.mjs`, `shoot.mjs`, `gate.mjs` and layout tools.
 - GSAP capability routing, framework lifecycles, accessible patterns, advanced
   choreography and a source audit for common motion hazards.
+- A rendered content-inset audit for borders, rows, cards and toolbars in the
+  active browser or Electron view.
 - Explicit integration rules: one animation owner per property; user-requested
   Static mode; existing framework, real content and brand preserved.
 - A pinned upstream inventory with hashes, so missing assets and accidental edits
@@ -65,6 +67,7 @@ node tests/upstream-integrity.mjs
 node tests/scripts-parse.mjs
 node skills/taste-gsap-frontend/scripts/audit-motion.test.mjs
 node --test tests/motion-audit.mjs
+node --test tests/content-insets.mjs
 ```
 
 Optional real-browser kit regression (one model or the whole kit):
@@ -77,6 +80,13 @@ For generated custom GSAP source:
 
 ```bash
 node skills/taste-gsap-frontend/scripts/audit-motion.mjs --strict src
+```
+
+Run the inset audit on a rendered app screen with a local DevTools port.
+
+```bash
+node skills/taste-gsap-frontend/scripts/audit-insets.mjs --cdp 9222 --target "Work queue" \
+  --surface ".task-row" --content ".status-chip, .task-action"
 ```
 
 The audit is heuristic: review warnings and verify actual playback, reduced motion,
